@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, jsonify
 from datetime import date
 import random
 
@@ -75,6 +75,10 @@ def change_status(id, new_status):
             res['statut'] = new_status
             break
     return redirect(url_for('index'))
+
+@app.route('/api/resolutions')
+def get_res_json():
+    return jsonify(resolutions)
     
 if __name__== '__main__':
     app.run(debug=True, host='0.0.0.0', port=5454)
