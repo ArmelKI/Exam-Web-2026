@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une résolution</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">Accueil</a>
+        <a href="{{ url_for('add') }}">Ajouter</a>
+    </nav>
+    <h1>Ajouter une résolution</h1>
+
+    <form action="{{url_for('add')}}", method="post">
+    <div>
+    <label for="pseudo">Pseudo</label>
+    <input type="text" id="pseudo" name="pseudo" required>
+    <label for="texte">Résolution</label>
+    <textarea name="texte" id="texte" rows="5"></textarea>
+    </div>
+    <button type="submit">Ajouter</button>
+    </form>
+    {% if message %}
+    <p class="message">{{ message }}</p>
+    {% endif %}
+</body>
+</html>
