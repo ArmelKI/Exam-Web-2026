@@ -12,6 +12,7 @@
         <a href="{{ url_for('add')}}">Ajouter</a>
         </nav>
         <h1>Le mur des bonnes résolutions</h1>
+        <p>Liste des résolutions en mémoire</p>
         <ul>
         {% for res in resolutions %}
         <li>
@@ -25,6 +26,18 @@
             <span class="resolution-content">{{ res.texte }}</span>
             <span class="vote">Votes : {{ res.votes }}</span>
             <span class="date">{{ res.created_at }}</span>
+            <div class="actions">
+                <form action="{{ url_for('vote', id=res.id)}}" method="post">
+                <button type="submit">+1🔥</button>
+                </form>
+                <form action="{{ url_for('change_status', id=res.id, new_status='kept') }}" method="post">
+                    <button type="submit">✅ Tenue </button>
+                </form>
+
+                <form action="{{ url_for('change_status', id=res.id, new_status='dropped') }}" method="post">
+                    <button type="submit">😅 Abandonnée </button>
+                </form>
+            </div>
             {% if res.votes >= 5 %}
             <span class="badge">Top résolution</span>
             {% endif%}
