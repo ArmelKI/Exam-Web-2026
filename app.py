@@ -59,6 +59,22 @@ def add():
         message = random.choice(messages_succes)
         
     return render_template('add.html', message=message)
+
+@app.route('/vote/<int:id>', methods=['POST'])
+def vote(id):
+    for res in resolutions:
+        if res['id'] == id:
+            res['votes'] +=1
+            break
+    return redirect (url_for('index'))
+
+@app.route('/status/<int:id>/<new_status>', methods=['POST'])
+def change_status(id, new_status):
+    for res in resolutions:
+        if res["id"] == id:
+            res['statut'] = new_status
+            break
+    return redirect(url_for('index'))
     
 if __name__== '__main__':
     app.run(debug=True, host='0.0.0.0', port=5454)
