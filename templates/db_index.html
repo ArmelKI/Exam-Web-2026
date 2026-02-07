@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le mur des bonnes résolutions (SQLite)</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <nav>
+    <a href="{{url_for('index')}}">Accueil</a>
+    <a href="{{url_for('add')}}">Ajouter</a></nav>
+    <h1>Le mur des bonnes résolutions (SQLite)</h1>
+    
+    <ul>
+    {% for res in resolutions%}
+        <li>
+            <span class="resolution-emoji">
+            {% if res.statut == 'active' %} 🎯
+            {% elif res.statut == 'dropped' %} 😅
+            {% elif res.statut == 'kept' %} ✅
+            {% endif %}
+            </span>
+            <strong class="pseudo">{{ res.pseudo }}</strong>
+            <span class="resolution-content">{{ res.texte }}</span>
+            <span class="vote">Votes : {{ res.votes }}</span>
+            <span class="date">{{ res.created_at }}</span>
+            {% if res.votes >= 5 %}
+            <span class="badge">Top résolution</span>
+            {% endif%}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
