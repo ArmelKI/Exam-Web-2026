@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request, jsonify
 from datetime import date
 import random
+import sqlite3
 
 resolutions = [
 {
@@ -79,6 +80,19 @@ def change_status(id, new_status):
 @app.route('/api/resolutions')
 def get_res_json():
     return jsonify(resolutions)
+
+@app.route('/db')
+def id_index():
+    con = sqlite3.connect('resolutions.db')
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    
+    cur.execute("SELECT * FROM resolutions")
+    resolutions_db = cur.fetchall()
+    
+    con.close()
+    
+    return render_template('db_index.html', resolutions=resolutions_db)
     
 if __name__== '__main__':
     app.run(debug=True, host='0.0.0.0', port=5454)
