@@ -1,0 +1,8 @@
+CREATE TABLE resolutions(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pseudo TEXT NOT NULL,
+    texte TEXT NOT NULL,
+    votes INTEGER NOT NULL CHECK (votes>=0) DEFAULT 0,
+    statut TEXT CHECK (statut IN ('active', 'kept', 'dropped')) DEFAULT 'active',
+    created_at DATETIME DEFAULT CURRENT_DATE
+);
